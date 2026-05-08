@@ -1,0 +1,306 @@
+/* ============================================================
+   InfoAtlas project page — custom overrides on top of Bulma
+   ============================================================ */
+
+:root {
+  --infoatlas-accent: #355f8a;        /* deep blue */
+  --infoatlas-accent-soft: #eaf1f8;
+  --infoatlas-ink: #1a1a1a;
+  --infoatlas-muted: #555;
+  --infoatlas-rule: #e5e7eb;
+  --infoatlas-bg-alt: #fafbfd;
+  --infoatlas-method: #2d6cdf;        /* "InfoAtlas" wordmark color */
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans', 'Google Sans', -apple-system, BlinkMacSystemFont,
+               'Segoe UI', Roboto, sans-serif;
+  color: var(--infoatlas-ink);
+  background: #ffffff;
+}
+
+/* Brand wordmark */
+.method-name {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  font-weight: 700;
+  color: var(--infoatlas-method);
+  letter-spacing: 0.2px;
+}
+
+code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: var(--infoatlas-accent-soft);
+  color: var(--infoatlas-ink);
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero {
+  background: linear-gradient(180deg, #ffffff 0%, var(--infoatlas-accent-soft) 100%);
+  padding-top: 1rem;
+}
+
+.conf-badge {
+  background: var(--infoatlas-accent);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2rem;
+}
+
+.publication-title {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  font-weight: 700;
+  font-size: 2.1rem;
+  line-height: 1.25;
+  margin-top: 0.3rem !important;
+  margin-bottom: 1.6rem !important;
+}
+
+@media (max-width: 768px) {
+  .publication-title { font-size: 1.55rem; }
+}
+
+.publication-authors {
+  margin-top: 0.4rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.7;
+}
+
+.publication-authors .author-block {
+  margin-right: 0.4rem;
+}
+
+.publication-authors a {
+  color: var(--infoatlas-ink);
+  border-bottom: 1px dotted #aaa;
+}
+.publication-authors a:hover {
+  color: var(--infoatlas-method);
+  border-bottom-color: var(--infoatlas-method);
+}
+
+.publication-affiliations {
+  color: var(--infoatlas-muted);
+  margin-bottom: 0.3rem;
+}
+.equal-contrib-note {
+  margin-top: 0.6rem;
+  margin-bottom: 1.2rem;
+  color: var(--infoatlas-muted);
+}
+
+/* Hero buttons */
+.hero-buttons { margin-top: 1.4rem; }
+.publication-links .link-block { margin: 0.25rem 0.2rem; display: inline-block; }
+.publication-links .button {
+  background: var(--infoatlas-ink);
+  color: #fff;
+  font-weight: 500;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+  transition: transform 0.12s ease, background 0.2s ease;
+}
+.publication-links .button:hover {
+  background: var(--infoatlas-method);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   Teaser
+   ============================================================ */
+.teaser {
+  background: #ffffff;
+  padding-top: 0;
+}
+.teaser-image {
+  display: block;
+  max-width: 880px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(20, 40, 80, 0.10);
+}
+.teaser-caption {
+  margin-top: 1.2rem !important;
+  font-size: 1.05rem;
+  color: var(--infoatlas-muted);
+  font-weight: 400;
+}
+
+/* ============================================================
+   Section spacing & headings
+   ============================================================ */
+.section { padding: 3rem 1.5rem; }
+.section-alt { background: var(--infoatlas-bg-alt); }
+
+.title.is-3 {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  font-weight: 700;
+  margin-bottom: 1.4rem !important;
+}
+
+.method-subtitle {
+  color: var(--infoatlas-muted);
+  font-weight: 400;
+  font-size: 1.05rem;
+  margin-bottom: 1.8rem !important;
+}
+
+/* ============================================================
+   TL;DR cards
+   ============================================================ */
+.tldr-cards { margin-top: 1.4rem; }
+
+.tldr-card {
+  background: #ffffff;
+  border: 1px solid var(--infoatlas-rule);
+  border-radius: 10px;
+  padding: 1.4rem 1.3rem 1.2rem;
+  height: 100%;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.tldr-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(45, 108, 223, 0.10);
+  border-color: var(--infoatlas-method);
+}
+
+.tldr-icon {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--infoatlas-accent-soft);
+  color: var(--infoatlas-method);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem;
+  margin-bottom: 0.9rem;
+}
+
+.tldr-card p {
+  margin-bottom: 0;
+  line-height: 1.55;
+  color: #2d2d2d;
+}
+
+/* ============================================================
+   Method
+   ============================================================ */
+.method-figure {
+  max-width: 900px;
+  margin: 0 auto 1.8rem;
+}
+.method-figure img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--infoatlas-rule);
+}
+
+.method-text { line-height: 1.7; }
+
+.method-h {
+  margin-top: 1.7rem !important;
+  margin-bottom: 0.6rem !important;
+  color: var(--infoatlas-accent);
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+}
+
+.paradigm-callout {
+  margin-top: 1.6rem !important;
+  padding: 1rem 1.2rem;
+  background: var(--infoatlas-accent-soft);
+  border-left: 3px solid var(--infoatlas-method);
+  border-radius: 0 6px 6px 0;
+  color: #1f2a3a;
+}
+
+/* ============================================================
+   Results
+   ============================================================ */
+.results-figure {
+  max-width: 760px;
+  margin: 0 auto 1.5rem;
+}
+.results-figure img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--infoatlas-rule);
+  background: #fff;
+}
+.results-caption {
+  margin-top: 0.7rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--infoatlas-muted);
+}
+
+.results-table-wrapper {
+  margin-top: 2rem;
+  overflow-x: auto;
+}
+
+.results-table {
+  background: #fff;
+  border: 1px solid var(--infoatlas-rule);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.results-table th {
+  background: var(--infoatlas-accent-soft);
+  color: var(--infoatlas-accent);
+  font-weight: 600;
+}
+.results-table td, .results-table th {
+  vertical-align: middle;
+  padding: 0.8rem 1rem;
+}
+
+/* ============================================================
+   BibTeX
+   ============================================================ */
+.bibtex-wrapper {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+}
+.bibtex-wrapper pre {
+  background: #0f1622;
+  color: #e8eef7;
+  border-radius: 8px;
+  padding: 1.4rem 1.4rem 1.4rem 1.4rem;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+.copy-bibtex-btn {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 2;
+  background: #1f2a3a;
+  color: #fff;
+  border-color: transparent;
+}
+.copy-bibtex-btn:hover { background: var(--infoatlas-method); color: #fff; }
+.copy-bibtex-btn.copied { background: #2f8f5a; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer {
+  background: #ffffff;
+  border-top: 1px solid var(--infoatlas-rule);
+  padding: 2rem 1.5rem;
+}
+.footer .content p { color: var(--infoatlas-muted); }
+.footer a {
+  color: var(--infoatlas-accent);
+  border-bottom: 1px dotted var(--infoatlas-accent);
+}
+.footer a:hover { color: var(--infoatlas-method); }

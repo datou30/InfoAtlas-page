@@ -46,9 +46,9 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="#" target="_blank">Zhengyang Hu</a><sup>1,*</sup>,</span>
+              <a href="https://datou30.github.io/" target="_blank">Zhengyang Hu</a><sup>1,*</sup>,</span>
             <span class="author-block">
-              <a href="#" target="_blank">Yanzhi Chen</a><sup>2,3,*</sup>,</span>
+              <a href="https://cyz-ai.github.io/" target="_blank">Yanzhi Chen</a><sup>2,3,*</sup>,</span>
             <span class="author-block">
               <a href="#" target="_blank">Hanxiang Ren</a><sup>4</sup>,</span>
             <span class="author-block">
@@ -61,7 +61,7 @@
             <span class="author-block">
               <a href="#" target="_blank">Kaibin Huang</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="#" target="_blank">Yanchao Yang</a><sup>1,&dagger;</sup></span>
+              <a href="https://yanchaoyang.github.io/" target="_blank">Yanchao Yang</a><sup>1,&dagger;</sup></span>
           </div>
 
           <div class="is-size-6 publication-affiliations">
@@ -148,24 +148,21 @@
             <div class="tldr-card">
               <div class="tldr-icon"><i class="fas fa-bolt"></i></div>
               <p><strong>One forward pass.</strong>
-              No per-dataset gradient descent, no critic to fit at test time.
-              <span class="method-name">InfoAtlas</span> outputs MI directly from samples.</p>
+              No test-time optimization &mdash; MI from samples, directly.</p>
             </div>
           </div>
           <div class="column is-one-third">
             <div class="tldr-card">
               <div class="tldr-icon"><i class="fas fa-tachometer-alt"></i></div>
               <p><strong>~100&times; faster, same accuracy.</strong>
-              Matches MINE, MINDE, and InfoNCE on standard benchmarks while
-              replacing thousands of optimization steps with a single inference.</p>
+              On par with MINE, MINDE, and InfoNCE on standard benchmarks.</p>
             </div>
           </div>
           <div class="column is-one-third">
             <div class="tldr-card">
               <div class="tldr-icon"><i class="fas fa-cubes"></i></div>
               <p><strong>One model, many shapes.</strong>
-              Variable dimensions and sample sizes through a unified architecture.
-              Generalizes zero-shot to CLIP, motion trajectories, and robotics.</p>
+              Any dimension, any sample size. Zero-shot on CLIP, motion, robotics.</p>
             </div>
           </div>
         </div>
@@ -185,23 +182,13 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Measuring statistical dependency between high-dimensional random variables
-            is a fundamental task in data science and machine learning. Neural mutual
-            information (MI) estimators offer a promising avenue, but they typically
-            require costly iterative optimization for each new dataset, making them
-            impractical for real-time applications. We present
-            <span class="method-name">InfoAtlas</span>, a foundation model-like architecture that
-            eliminates this bottleneck by directly inferring MI in a single forward pass.
-            Pretrained on large-scale synthetic data with rich dependence patterns,
-            <span class="method-name">InfoAtlas</span> learns to identify diverse dependence
-            structures and predict MI directly from the dataset. Comprehensive experiments
-            demonstrate that <span class="method-name">InfoAtlas</span> matches state-of-the-art
-            neural estimators in accuracy while achieving 100&times; speedup, can flexibly
-            handle varying dimensions and sample sizes through a single unified model,
-            and generalizes effectively to complex, real-world scenarios. By reformulating
-            MI estimation from an optimization problem to an inference task,
-            <span class="method-name">InfoAtlas</span> establishes a foundation for real-time
-            dependency analysis.
+            Neural mutual information (MI) estimators are accurate but slow:
+            each new dataset triggers its own optimization run.
+            <span class="method-name">InfoAtlas</span> removes that step. Pretrained
+            once on a large synthetic atlas of dependence structures, it infers MI
+            in a single forward pass &mdash; matching state-of-the-art accuracy at
+            ~100&times; the speed, on inputs of varying dimension and sample size,
+            with strong zero-shot transfer to real data.
           </p>
         </div>
       </div>
@@ -229,55 +216,40 @@
 
         <div class="content has-text-justified method-text">
           <p>
-            <span class="method-name">InfoAtlas</span> is a hypernetwork: given a batch of
-            samples drawn from an unknown joint distribution, it outputs the parameters
-            of a near-optimal Donsker&ndash;Varadhan critic in one shot, then plugs those
-            parameters into the dual-form MI estimator. No gradient descent at test time,
-            no per-dataset critic to fit.
+            Given samples from an unknown joint distribution,
+            <span class="method-name">InfoAtlas</span> emits the parameters of a
+            near-optimal Donsker&ndash;Varadhan critic in one shot and plugs them
+            into the dual-form MI estimator.
           </p>
 
           <h3 class="title is-5 method-h">Dual-path attention</h3>
           <p>
-            The architecture mirrors the structure of the MI dual representation.
-            A <em>joint path</em> processes paired samples <code>(x, y)</code> with
-            cross-attention to capture co-variation. A <em>marginal path</em> processes
-            <code>x</code> and <code>y</code> independently &mdash; effectively shuffling
-            the pairing &mdash; to establish what the data would look like under
-            independence. An integration module fuses both paths so the critic can
-            score joint patterns against an internally-built marginal baseline. A
-            small MLP then decodes critic weights from the fused representation.
+            A <em>joint path</em> attends over paired samples <code>(x, y)</code> to
+            capture co-variation. A <em>marginal path</em> shuffles the pairing to
+            model what independence would look like. The two are fused by
+            cross-attention; a small MLP then decodes the critic weights.
           </p>
 
           <h3 class="title is-5 method-h">Variable-shape inputs</h3>
           <p>
-            Real datasets have many shapes. <span class="method-name">InfoAtlas</span>
-            handles arbitrary input dimensions by padding to a fixed dimensionality
-            with independent Gaussian noise &mdash; a transformation that
-            <em>provably preserves MI</em>. Sample sizes vary too, and the attention
-            blocks accommodate this naturally.
+            Inputs of any dimension are padded to a fixed size with independent
+            Gaussian noise &mdash; a transformation that <em>provably preserves MI</em>.
+            Attention handles varying sample sizes natively.
           </p>
 
-          <h3 class="title is-5 method-h">A pretraining atlas of dependences</h3>
+          <h3 class="title is-5 method-h">The pretraining atlas</h3>
           <p>
-            To learn a general-purpose MI estimator, we pretrain on a meta-distribution
-            spanning rich dependence structures: mixtures of up to 60 Gaussian and
-            Student-<em>t</em> copulas (covering linear, nonlinear, and heavy-tailed
-            dependence), composed with randomly parameterized normalizing flows that
-            warp marginals while preserving MI exactly. A low-rank covariance
-            factorization &Sigma;&nbsp;=&nbsp;<em>WW</em><sup>&top;</sup>&nbsp;+&nbsp;<em>D</em>
-            forces strong cross-dimensional correlations rather than the
-            near-diagonal matrices that vanilla random sampling produces. For
-            dimensions beyond what the model was directly trained on,
-            <em>k</em>-sliced MI &mdash; richer than 1-D slicing &mdash; provides a
-            controlled extrapolation path.
+            We pretrain on mixtures of up to 60 Gaussian and Student-<em>t</em> copulas
+            (linear, nonlinear, heavy-tailed), composed with random normalizing flows
+            that reshape marginals while preserving MI. A low-rank covariance design
+            forces strong cross-dimensional structure. For larger dimensions,
+            <em>k</em>-sliced MI extrapolates beyond the trained range.
           </p>
 
           <p class="paradigm-callout">
-            <strong>The shift:</strong> previous neural estimators (MINE, InfoNCE,
-            MINDE) <em>optimize</em> a critic on every new dataset.
-            <span class="method-name">InfoAtlas</span> <em>infers</em> the critic
-            directly &mdash; the cost of estimation collapses from minutes to
-            milliseconds.
+            <strong>The shift:</strong> prior neural estimators <em>optimize</em> a
+            critic per dataset. <span class="method-name">InfoAtlas</span>
+            <em>infers</em> it &mdash; minutes become milliseconds.
           </p>
         </div>
       </div>
@@ -296,22 +268,16 @@
         <h2 class="title is-3 has-text-centered">From Optimization to Inference</h2>
         <div class="content has-text-justified">
           <p>
-            Mutual information underpins independence testing, representation
-            learning, information-bottleneck analysis, feature selection, robotic
-            policy design, and more. The reason it has not become a default tool
-            in modern pipelines is operational: classical estimators do not scale
-            to high dimensions, and neural estimators turn every MI query into a
+            MI underpins independence testing, representation learning,
+            information bottlenecks, feature selection, and policy design.
+            What has held it back is operational: every neural query is a
             small training run.
           </p>
           <p>
-            <span class="method-name">InfoAtlas</span> amortizes that training run.
-            Pretraining once over a vast synthetic atlas of dependence structures
-            yields a model that, at test time, behaves like a calculator:
-            push samples in, read MI out. The estimate is differentiable, so
-            <span class="method-name">InfoAtlas</span> drops into end-to-end learning
-            pipelines as a layer rather than a subroutine. The same checkpoint
-            handles 1-D and high-D, small-<em>n</em> and large-<em>n</em>, without
-            retraining.
+            <span class="method-name">InfoAtlas</span> amortizes that run once,
+            over the synthetic atlas. At test time it behaves like a calculator
+            &mdash; samples in, MI out &mdash; and stays differentiable, so the
+            same checkpoint drops into end-to-end pipelines as a layer.
           </p>
         </div>
       </div>
@@ -329,17 +295,16 @@
       <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Results</h2>
         <p class="subtitle has-text-centered method-subtitle">
-          Across synthetic benchmarks, high-dimensional embeddings, video
-          trajectories, and robotic manipulation.
+          Synthetic benchmarks, high-D embeddings, motion, and robotics &mdash;
+          one checkpoint, no fine-tuning.
         </p>
 
         <figure class="image results-figure">
           <img src="static/images/bmi.png" alt="BMI benchmark comparison">
           <figcaption class="results-caption">
-            Estimation accuracy on the BMI benchmark
-            (Czyz et&nbsp;al., 2023). <span class="method-name">InfoAtlas</span> tracks
-            ground-truth MI as well as the best gradient-trained baselines, while
-            running orders of magnitude faster.
+            BMI benchmark (Czyz et&nbsp;al., 2023):
+            <span class="method-name">InfoAtlas</span> tracks ground-truth MI on par
+            with the best gradient-trained baselines, orders of magnitude faster.
           </figcaption>
         </figure>
 
@@ -348,42 +313,35 @@
             <thead>
               <tr>
                 <th>Setting</th>
-                <th>What we show</th>
-                <th>Compared against</th>
+                <th>Result</th>
+                <th>Baselines</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>BMI benchmark</strong> (Czyz&nbsp;et&nbsp;al., 2023)</td>
-                <td>Comparable accuracy to the best neural estimators; ~300&times; faster
-                    per evaluation (~0.09&nbsp;s vs. tens of seconds).</td>
+                <td><strong>BMI benchmark</strong></td>
+                <td>SOTA-comparable accuracy at ~0.09&nbsp;s/eval (~300&times; faster).</td>
                 <td>MINE, MINDE, InfoNCE, KNIFE, KSG, KDE, InfoNet</td>
               </tr>
               <tr>
-                <td><strong>Independence testing</strong> (dim 16 / 64 / 128)</td>
-                <td>Matches or exceeds neural baselines at moderate-to-large
-                    sample sizes across three correlation families.</td>
+                <td><strong>Independence testing</strong> (16 / 64 / 128-D)</td>
+                <td>Matches or beats neural baselines at moderate&ndash;large&nbsp;<em>n</em>.</td>
                 <td>MINE, InfoNCE, MINDE, InfoNet</td>
               </tr>
               <tr>
-                <td><strong>CLIP image&ndash;text MI</strong> (33k COCO pairs, 512-D)</td>
-                <td>Cleanly separated error bands across noise levels;
-                    superior sensitivity to dependency change. 5-sliced MI
-                    beats InfoNet&rsquo;s 1-sliced approximation.</td>
+                <td><strong>CLIP image&ndash;text</strong> (33k COCO, 512-D)</td>
+                <td>Cleaner noise-band separation; 5-sliced MI beats InfoNet&rsquo;s 1-sliced.</td>
                 <td>MINE, MINDE, InfoNet</td>
               </tr>
               <tr>
-                <td><strong>Motion trajectory segmentation</strong> (PointOdyssey)</td>
-                <td>Identifies points on the same object via trajectory MI;
-                    AUC-PR competitive with optimization-based estimators in seconds,
-                    not hours.</td>
+                <td><strong>Trajectory segmentation</strong> (PointOdyssey)</td>
+                <td>Same-object grouping by trajectory MI &mdash; seconds, not hours.</td>
                 <td>MINE, InfoNet</td>
               </tr>
               <tr>
                 <td><strong>Robotic key-state discovery</strong> (ManiSkill 2)</td>
-                <td>Best success rates on Pick&nbsp;Cube (94.2% seen / 82.0% unseen),
-                    Stack&nbsp;Cube (68.2% seen), and Peg&nbsp;Insertion (72.4% seen).</td>
-                <td>Task-specific baselines + InfoNet</td>
+                <td>Best on Pick&nbsp;Cube (94.2 / 82.0), Stack&nbsp;Cube (68.2), Peg&nbsp;Insertion (72.4).</td>
+                <td>Task-specific baselines, InfoNet</td>
               </tr>
             </tbody>
           </table>

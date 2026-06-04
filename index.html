@@ -6,13 +6,27 @@
   <meta name="description"
         content="InfoAtlas: a foundation-style model that estimates mutual information between high-dimensional random variables in a single forward pass. ICML 2026.">
   <meta name="keywords"
-        content="InfoAtlas, mutual information, foundation model, dependency estimation, ICML 2026, hypernetwork">
+        content="InfoAtlas, mutual information, foundation model, dependency estimation, ICML 2026, hypernetwork, real-time MI">
 
   <meta property="og:title" content="InfoAtlas: A Foundation-style Model for Zero-Shot Statistical Dependency Measurement">
-  <meta property="og:description" content="MI estimation as inference, not optimization. 100x speedup at SOTA accuracy. ICML 2026.">
+  <meta property="og:description" content="MI estimation as inference, not optimization. ~100x speedup at SOTA accuracy. ICML 2026.">
   <meta property="og:image" content="static/images/teaser.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Scholar citation metadata: helps Scholar index this page as ICML 2026 -->
+  <meta name="citation_title" content="InfoAtlas: A Foundation-style Model for Zero-Shot Statistical Dependency Measurement">
+  <meta name="citation_author" content="Hu, Zhengyang">
+  <meta name="citation_author" content="Chen, Yanzhi">
+  <meta name="citation_author" content="Ren, Hanxiang">
+  <meta name="citation_author" content="Zeng, Qunsong">
+  <meta name="citation_author" content="Zheng, Youyi">
+  <meta name="citation_author" content="Weller, Adrian">
+  <meta name="citation_author" content="Huang, Kaibin">
+  <meta name="citation_author" content="Yang, Yanchao">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="International Conference on Machine Learning (ICML)">
+  <meta name="citation_pdf_url" content="static/pdfs/paper.pdf">
 
   <title>InfoAtlas | A Foundation-style Model for Zero-Shot Statistical Dependency Measurement (ICML 2026)</title>
 
@@ -32,17 +46,30 @@
 <!-- HERO -->
 <!-- ============================================================ -->
 <section class="hero">
+  <div class="hero-bg-grid" aria-hidden="true"></div>
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <span class="tag is-medium conf-badge">ICML 2026</span>
+          <a href="https://icml.cc/" target="_blank" class="conf-badge-wrap" aria-label="Accepted at ICML 2026">
+            <span class="tag is-medium conf-badge">
+              <i class="fas fa-award" aria-hidden="true"></i>
+              &nbsp;Accepted at ICML&nbsp;2026
+            </span>
+          </a>
           <h1 class="title publication-title">
             <span class="method-name">InfoAtlas</span>:
             <br>
             A Foundation-style Model for<br>
             Zero-Shot Statistical Dependency Measurement
           </h1>
+
+          <p class="hero-tagline">
+            Need <strong>fast</strong>, <strong>large-scale</strong> mutual information estimates?
+            <br class="hero-tagline-br">
+            <span class="method-name">InfoAtlas</span> turns MI estimation into a single forward pass &mdash;
+            no per-dataset training, no waiting.
+          </p>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
@@ -79,12 +106,20 @@
                   <span>Paper</span>
                 </a>
               </span>
-              <!-- arXiv (placeholder) -->
+              <!-- arXiv -->
               <span class="link-block">
-                <a href="#"
+                <a href="https://arxiv.org/abs/2026.XXXXX"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Poster -->
+              <span class="link-block">
+                <a href="static/pdfs/poster.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-image"></i></span>
+                  <span>Poster</span>
                 </a>
               </span>
               <!-- Code -->
@@ -103,6 +138,26 @@
                   <span>BibTeX</span>
                 </a>
               </span>
+            </div>
+          </div>
+
+          <!-- Stats strip -->
+          <div class="hero-stats" role="list">
+            <div class="hero-stat" role="listitem">
+              <div class="hero-stat-num">~100&times;</div>
+              <div class="hero-stat-label">faster than neural baselines</div>
+            </div>
+            <div class="hero-stat" role="listitem">
+              <div class="hero-stat-num">0.09<span class="hero-stat-unit">s</span></div>
+              <div class="hero-stat-label">per BMI evaluation</div>
+            </div>
+            <div class="hero-stat" role="listitem">
+              <div class="hero-stat-num">1</div>
+              <div class="hero-stat-label">forward pass, no fine-tuning</div>
+            </div>
+            <div class="hero-stat" role="listitem">
+              <div class="hero-stat-num">60+</div>
+              <div class="hero-stat-label">copula families pretrained on</div>
             </div>
           </div>
         </div>
@@ -137,7 +192,11 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">TL;DR</h2>
+        <h2 class="title is-3 has-text-centered">Built for fast, repeated MI queries</h2>
+        <p class="subtitle has-text-centered method-subtitle">
+          If you ever need MI estimates in a loop &mdash; over batches, time windows,
+          or model checkpoints &mdash; <span class="method-name">InfoAtlas</span> is the tool.
+        </p>
         <div class="columns is-multiline tldr-cards">
           <div class="column is-one-third">
             <div class="tldr-card">
@@ -348,11 +407,44 @@
 
 
 <!-- ============================================================ -->
+<!-- POSTER -->
+<!-- ============================================================ -->
+<section class="section" id="poster">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width has-text-centered">
+        <h2 class="title is-3">ICML&nbsp;2026 Poster</h2>
+        <p class="subtitle method-subtitle">
+          The whole story on one page &mdash; see you in Seoul.
+        </p>
+        <div class="poster-wrapper">
+          <embed src="static/pdfs/poster.pdf#view=FitH"
+                 type="application/pdf"
+                 class="poster-embed"
+                 title="InfoAtlas ICML 2026 poster">
+          <div class="poster-fallback">
+            <a href="static/pdfs/poster.pdf" target="_blank"
+               class="button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span>Download poster (PDF)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
 <!-- BIBTEX -->
 <!-- ============================================================ -->
-<section class="section" id="bibtex">
+<section class="section section-alt" id="bibtex">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <p class="subtitle has-text-centered method-subtitle">
+      Please cite the ICML&nbsp;2026 version.
+    </p>
     <div class="bibtex-wrapper">
       <button class="button is-small is-dark copy-bibtex-btn" id="copyBibtexBtn"
               aria-label="Copy BibTeX entry to clipboard">
@@ -360,7 +452,8 @@
         <span>Copy</span>
       </button>
 <pre id="bibtexEntry">@inproceedings{hu2026infoatlas,
-  title     = {A Foundation-style Model for Zero-Shot Statistical Dependency Measurement},
+  title     = {{InfoAtlas}: A Foundation-style Model for Zero-Shot
+               Statistical Dependency Measurement},
   author    = {Hu, Zhengyang and Chen, Yanzhi and Ren, Hanxiang and Zeng, Qunsong
                and Zheng, Youyi and Weller, Adrian and Huang, Kaibin and Yang, Yanchao},
   booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},

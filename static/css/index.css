@@ -25,7 +25,10 @@ body {
 .method-name {
   font-family: 'Google Sans', 'Noto Sans', sans-serif;
   font-weight: 700;
-  color: var(--infoatlas-method);
+  background: linear-gradient(135deg, var(--infoatlas-accent) 0%, var(--infoatlas-method) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   letter-spacing: 0.2px;
 }
 
@@ -42,16 +45,127 @@ code {
    Hero
    ============================================================ */
 .hero {
+  position: relative;
   background: linear-gradient(180deg, #ffffff 0%, var(--infoatlas-accent-soft) 100%);
   padding-top: 1rem;
+  overflow: hidden;
+}
+
+/* subtle blueprint grid behind the hero */
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(53, 95, 138, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 95, 138, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at 50% 35%, #000 35%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 35%, transparent 75%);
+  z-index: 0;
+}
+.hero .hero-body { position: relative; z-index: 1; }
+
+.conf-badge-wrap {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 1.2rem;
 }
 
 .conf-badge {
-  background: var(--infoatlas-accent);
+  background: linear-gradient(135deg, var(--infoatlas-accent) 0%, var(--infoatlas-method) 100%);
   color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  padding: 0.55em 1.05em;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(45, 108, 223, 0.30);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.conf-badge::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg,
+              rgba(255,255,255,0) 0%,
+              rgba(255,255,255,0.55) 50%,
+              rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  animation: badge-shine 3.6s ease-in-out infinite;
+}
+.conf-badge-wrap:hover .conf-badge {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(45, 108, 223, 0.40);
+}
+@keyframes badge-shine {
+  0%   { left: -75%; }
+  60%  { left: 125%; }
+  100% { left: 125%; }
+}
+
+/* Hero tagline — the "use this when..." hook */
+.hero-tagline {
+  max-width: 660px;
+  margin: 0.2rem auto 1.4rem;
+  color: var(--infoatlas-muted);
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+.hero-tagline strong {
+  color: var(--infoatlas-method);
+  font-weight: 700;
+}
+@media (max-width: 600px) {
+  .hero-tagline-br { display: none; }
+}
+
+/* Hero stats strip */
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+.hero-stat {
+  flex: 1 1 160px;
+  max-width: 200px;
+  background: #ffffff;
+  border: 1px solid var(--infoatlas-rule);
+  border-radius: 12px;
+  padding: 1rem 0.9rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(20, 40, 80, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.hero-stat:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(45, 108, 223, 0.12);
+  border-color: var(--infoatlas-method);
+}
+.hero-stat-num {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--infoatlas-accent) 0%, var(--infoatlas-method) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-stat-unit {
+  font-size: 1.05rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  margin-bottom: 1.2rem;
+  margin-left: 0.05em;
+}
+.hero-stat-label {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--infoatlas-muted);
+  line-height: 1.35;
 }
 
 .publication-title {
@@ -258,6 +372,36 @@ code {
 .results-table td, .results-table th {
   vertical-align: middle;
   padding: 0.8rem 1rem;
+}
+
+/* ============================================================
+   Poster
+   ============================================================ */
+.poster-wrapper {
+  position: relative;
+  max-width: 880px;
+  margin: 1.2rem auto 0;
+  background: #ffffff;
+  border: 1px solid var(--infoatlas-rule);
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(20, 40, 80, 0.10);
+  overflow: hidden;
+}
+.poster-embed {
+  display: block;
+  width: 100%;
+  height: 880px;
+  border: 0;
+  background: #f5f7fb;
+}
+.poster-fallback {
+  padding: 0.9rem 1rem;
+  text-align: center;
+  border-top: 1px solid var(--infoatlas-rule);
+  background: var(--infoatlas-bg-alt);
+}
+@media (max-width: 768px) {
+  .poster-embed { height: 520px; }
 }
 
 /* ============================================================

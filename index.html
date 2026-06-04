@@ -255,11 +255,16 @@
             Attention handles varying sample sizes natively.
             For high-dimensional inputs beyond the trained range, we plug
             <span class="method-name">InfoAtlas</span> into
-            <em>k</em>-sliced MI&nbsp;<a href="#ref-goldfeld2022k" class="ref-link">[1]</a>:
-            the data is projected onto several <em>k</em>-dimensional random subspaces and
-            the per-projection MI estimates are averaged &mdash; preserving the
-            independence&nbsp;&hArr;&nbsp;zero-MI property with dimension-free sample
-            complexity.
+            <em>k</em>-sliced MI&nbsp;[1]: the data is projected onto several
+            <em>k</em>-dimensional random subspaces and the per-projection MI
+            estimates are averaged &mdash; preserving the
+            independence&nbsp;&hArr;&nbsp;zero-MI property with dimension-free
+            sample complexity.
+          </p>
+          <p class="method-ref">
+            [1] Goldfeld, Greenewald, Nuradha, Reeves.
+            <em>k-Sliced Mutual Information: A Quantitative Study of Scalability
+            with Dimension.</em> NeurIPS&nbsp;2022.
           </p>
 
           <p class="paradigm-callout">
@@ -318,6 +323,41 @@
                     data-caption="ManiSkill 2 key-state discovery: policies trained on InfoAtlas-derived key states win on Pick Cube (94.2 / 82.0), Stack Cube (68.2), and Peg Insertion (72.4).">
               <img src="static/images/maxmi_revised.png" alt="Robotic key-state discovery success rates">
             </figure>
+            <figure class="gallery-slide is-table-slide"
+                    data-caption="Inference cost on a single H200 GPU &mdash; one forward pass, no training loop. Both runtime and GPU memory grow gently with sample size.">
+              <div class="gallery-table-card">
+                <table class="cost-table">
+                  <thead>
+                    <tr>
+                      <th>Sample size <em>n</em></th>
+                      <th>1k</th>
+                      <th>5k</th>
+                      <th>10k</th>
+                      <th>20k</th>
+                      <th>50k</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Time (s)</th>
+                      <td>0.039</td>
+                      <td>0.049</td>
+                      <td>0.055</td>
+                      <td>0.070</td>
+                      <td>0.106</td>
+                    </tr>
+                    <tr>
+                      <th>GPU memory (GB)</th>
+                      <td>0.21</td>
+                      <td>0.55</td>
+                      <td>0.98</td>
+                      <td>1.81</td>
+                      <td>4.33</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </figure>
           </div>
 
           <button class="gallery-nav gallery-next" type="button"
@@ -337,54 +377,9 @@
             <button class="gallery-dot" type="button" data-index="2" aria-label="CLIP image-text MI"></button>
             <button class="gallery-dot" type="button" data-index="3" aria-label="Trajectory segmentation"></button>
             <button class="gallery-dot" type="button" data-index="4" aria-label="Robotic key-state discovery"></button>
+            <button class="gallery-dot" type="button" data-index="5" aria-label="Inference cost on H200"></button>
           </div>
         </div>
-
-        <!-- Cost table: runtime + GPU memory (from arxiv appendix) -->
-        <h3 class="title is-5 cost-table-h">Inference cost on a single H800 GPU</h3>
-        <p class="cost-table-sub">
-          A single forward pass with one checkpoint &mdash; runtime and memory grow
-          gently with sample size, with no training step in the loop.
-        </p>
-        <div class="cost-table-wrapper">
-          <table class="table is-fullwidth is-hoverable cost-table">
-            <thead>
-              <tr>
-                <th>Sample size <em>n</em></th>
-                <th>1k</th>
-                <th>5k</th>
-                <th>10k</th>
-                <th>20k</th>
-                <th>50k</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th>Time (s)</th>
-                <td>0.039</td>
-                <td>0.049</td>
-                <td>0.055</td>
-                <td>0.070</td>
-                <td>0.106</td>
-              </tr>
-              <tr>
-                <th>GPU memory (GB)</th>
-                <td>0.21</td>
-                <td>0.55</td>
-                <td>0.98</td>
-                <td>1.81</td>
-                <td>4.33</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="ref-list">
-          <a id="ref-goldfeld2022k"></a>
-          [1] Goldfeld, Greenewald, Nuradha, Reeves.
-          <em>k-Sliced Mutual Information: A Quantitative Study of Scalability with Dimension.</em>
-          NeurIPS 2022.
-        </p>
       </div>
     </div>
   </div>
@@ -436,14 +431,16 @@
         <span class="icon"><i class="fas fa-copy"></i></span>
         <span>Copy</span>
       </button>
-<pre id="bibtexEntry">@inproceedings{hu2026infoatlas,
-  title     = {{InfoAtlas}: A Foundation-style Model for Zero-Shot
-               Statistical Dependency Measurement},
-  author    = {Hu, Zhengyang and Chen, Yanzhi and Ren, Hanxiang and Zeng, Qunsong
-               and Zheng, Youyi and Weller, Adrian and Huang, Kaibin and Yang, Yanchao},
-  booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},
-  year      = {2026},
-  note      = {Equal contribution: Zhengyang Hu and Yanzhi Chen.}
+<pre id="bibtexEntry">@article{hu2026infoatlas,
+  title         = {{InfoAtlas}: A Foundation-style Model for Zero-Shot
+                   Statistical Dependency Measurement},
+  author        = {Hu, Zhengyang and Chen, Yanzhi and Ren, Hanxiang and Zeng, Qunsong
+                   and Zheng, Youyi and Weller, Adrian and Huang, Kaibin and Yang, Yanchao},
+  journal       = {arXiv preprint arXiv:2606.00241},
+  year          = {2026},
+  eprint        = {2606.00241},
+  archivePrefix = {arXiv},
+  note          = {To appear at ICML 2026. Equal contribution: Zhengyang Hu and Yanzhi Chen.}
 }</pre>
     </div>
   </div>

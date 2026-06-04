@@ -383,6 +383,19 @@ code {
   max-height: 100%;
   object-fit: contain;
 }
+/* Table variant — used for the inference-cost slide */
+.gallery-slide.is-table-slide {
+  padding: 1.4rem 1.6rem;
+  background: linear-gradient(180deg, #fbfcfe 0%, #ffffff 100%);
+}
+.gallery-table-card {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .gallery-nav {
   position: absolute;
@@ -443,31 +456,16 @@ code {
   transform: scale(1.25);
 }
 
-/* Cost table */
-.cost-table-h {
-  margin-top: 2.4rem !important;
-  margin-bottom: 0.2rem !important;
-  color: var(--infoatlas-accent);
-  text-align: center;
-  font-family: 'Google Sans', 'Noto Sans', sans-serif;
-}
-.cost-table-sub {
-  text-align: center;
-  color: var(--infoatlas-muted);
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-}
-.cost-table-wrapper {
-  max-width: 760px;
-  margin: 0 auto;
-  overflow-x: auto;
-}
+/* Cost table — rendered inside the gallery's table-slide */
 .cost-table {
+  width: 100%;
   background: #fff;
   border: 1px solid var(--infoatlas-rule);
   border-radius: 8px;
   overflow: hidden;
   text-align: center;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 .cost-table thead th {
   background: var(--infoatlas-accent-soft);
@@ -484,28 +482,24 @@ code {
 }
 .cost-table td {
   font-variant-numeric: tabular-nums;
+  color: var(--infoatlas-ink);
 }
 .cost-table td, .cost-table th {
   vertical-align: middle;
-  padding: 0.6rem 0.9rem;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid var(--infoatlas-rule);
 }
+.cost-table tbody tr:last-child td,
+.cost-table tbody tr:last-child th { border-bottom: 0; }
 
-/* Inline ref link & ref list */
-.ref-link {
-  color: var(--infoatlas-method);
-  font-weight: 600;
-  text-decoration: none;
-  border-bottom: 1px dotted var(--infoatlas-method);
-}
-.ref-link:hover { color: var(--infoatlas-accent); }
-.ref-list {
-  margin-top: 2rem;
-  max-width: 760px;
-  margin-left: auto;
-  margin-right: auto;
+/* Method-section inline reference (under k-sliced MI mention) */
+.method-ref {
+  margin-top: -0.3rem;
+  margin-bottom: 1.2rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--infoatlas-rule);
   font-size: 0.82rem;
   color: var(--infoatlas-muted);
-  text-align: left;
   line-height: 1.5;
 }
 

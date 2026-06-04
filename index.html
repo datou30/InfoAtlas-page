@@ -52,11 +52,8 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <a href="https://icml.cc/" target="_blank" class="conf-badge-wrap" aria-label="Accepted at ICML 2026">
-            <span class="tag is-medium conf-badge">
-              <i class="fas fa-award" aria-hidden="true"></i>
-              &nbsp;Accepted at ICML&nbsp;2026
-            </span>
+          <a href="https://icml.cc/" target="_blank" class="conf-badge-wrap" aria-label="ICML 2026">
+            <span class="tag is-medium conf-badge">ICML&nbsp;2026</span>
           </a>
           <h1 class="title publication-title">
             <span class="method-name">InfoAtlas</span>:
@@ -65,11 +62,14 @@
             Zero-Shot Statistical Dependency Measurement
           </h1>
 
-          <p class="hero-tagline">
-            Need <strong>fast</strong>, <strong>large-scale</strong> mutual information estimates?
-            <br class="hero-tagline-br">
-            <span class="method-name">InfoAtlas</span> turns MI estimation into a single forward pass &mdash;
-            no per-dataset training, no waiting.
+          <p class="hero-tagline-headline">
+            Need <strong>fast</strong>, <strong>accurate dependence estimation</strong>?
+          </p>
+          <p class="hero-tagline-sub">
+            <span class="method-name">InfoAtlas</span> is a pretrained model that, after one-time
+            training on a vast atlas of synthetic distributions, estimates the dependency
+            between any <code>(x, y)</code> pair in a single forward pass.
+            Samples in, dependence out &mdash; and it stays differentiable.
           </p>
 
           <div class="is-size-5 publication-authors">
@@ -142,23 +142,27 @@
             </div>
           </div>
 
-          <!-- Stats strip -->
+          <!-- Stats strip (mirrors the ICML poster) -->
           <div class="hero-stats" role="list">
             <div class="hero-stat" role="listitem">
-              <div class="hero-stat-num">~100&times;</div>
-              <div class="hero-stat-label">faster than neural baselines</div>
+              <div class="hero-stat-icon" aria-hidden="true">&#9656;&#9656;</div>
+              <div class="hero-stat-num">300&times;</div>
+              <div class="hero-stat-label">faster than neural MI estimators</div>
             </div>
             <div class="hero-stat" role="listitem">
-              <div class="hero-stat-num">0.09<span class="hero-stat-unit">s</span></div>
-              <div class="hero-stat-label">per BMI evaluation</div>
+              <div class="hero-stat-icon" aria-hidden="true">&infin;</div>
+              <div class="hero-stat-num">all-order</div>
+              <div class="hero-stat-label">linear, non-linear, non-Gaussian, discrete &mdash; all caught</div>
             </div>
             <div class="hero-stat" role="listitem">
-              <div class="hero-stat-num">1</div>
-              <div class="hero-stat-label">forward pass, no fine-tuning</div>
+              <div class="hero-stat-icon" aria-hidden="true">&#9670;</div>
+              <div class="hero-stat-num">1 model</div>
+              <div class="hero-stat-label">handles any <em>d<sub>x</sub></em>, <em>d<sub>y</sub></em>, <em>n</em> &mdash; zero retraining</div>
             </div>
             <div class="hero-stat" role="listitem">
-              <div class="hero-stat-num">60+</div>
-              <div class="hero-stat-label">copula families pretrained on</div>
+              <div class="hero-stat-icon" aria-hidden="true">&#10003;</div>
+              <div class="hero-stat-num">0 grad</div>
+              <div class="hero-stat-label">steps at test time &mdash; one forward pass</div>
             </div>
           </div>
         </div>
@@ -181,47 +185,6 @@
         from a per-dataset optimization problem into a single forward pass &mdash;
         a pretrained model that infers MI directly from samples.
       </h2>
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================================================ -->
-<!-- TL;DR -->
-<!-- ============================================================ -->
-<section class="section tldr-section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered">Built for fast, repeated MI queries</h2>
-        <p class="subtitle has-text-centered method-subtitle">
-          If you ever need MI estimates in a loop &mdash; over batches, time windows,
-          or model checkpoints &mdash; <span class="method-name">InfoAtlas</span> is the tool.
-        </p>
-        <div class="columns is-multiline tldr-cards">
-          <div class="column is-one-third">
-            <div class="tldr-card">
-              <div class="tldr-icon"><i class="fas fa-bolt"></i></div>
-              <p><strong>One forward pass.</strong>
-              No test-time optimization &mdash; MI from samples, directly.</p>
-            </div>
-          </div>
-          <div class="column is-one-third">
-            <div class="tldr-card">
-              <div class="tldr-icon"><i class="fas fa-tachometer-alt"></i></div>
-              <p><strong>~100&times; faster, same accuracy.</strong>
-              On par with MINE, MINDE, and InfoNCE on standard benchmarks.</p>
-            </div>
-          </div>
-          <div class="column is-one-third">
-            <div class="tldr-card">
-              <div class="tldr-icon"><i class="fas fa-cubes"></i></div>
-              <p><strong>One model, many shapes.</strong>
-              Any dimension, any sample size. Zero-shot on CLIP, motion, robotics.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -290,15 +253,13 @@
             Inputs of any dimension are padded to a fixed size with independent
             Gaussian noise &mdash; a transformation that <em>provably preserves MI</em>.
             Attention handles varying sample sizes natively.
-          </p>
-
-          <h3 class="title is-5 method-h">The pretraining atlas</h3>
-          <p>
-            We pretrain on mixtures of up to 60 Gaussian and Student-<em>t</em> copulas
-            (linear, nonlinear, heavy-tailed), composed with random normalizing flows
-            that reshape marginals while preserving MI. A low-rank covariance design
-            forces strong cross-dimensional structure. For larger dimensions,
-            <em>k</em>-sliced MI extrapolates beyond the trained range.
+            For high-dimensional inputs beyond the trained range, we plug
+            <span class="method-name">InfoAtlas</span> into
+            <em>k</em>-sliced MI&nbsp;<a href="#ref-goldfeld2022k" class="ref-link">[1]</a>:
+            the data is projected onto several <em>k</em>-dimensional random subspaces and
+            the per-projection MI estimates are averaged &mdash; preserving the
+            independence&nbsp;&hArr;&nbsp;zero-MI property with dimension-free sample
+            complexity.
           </p>
 
           <p class="paradigm-callout">
@@ -314,35 +275,7 @@
 
 
 <!-- ============================================================ -->
-<!-- WHY IT MATTERS -->
-<!-- ============================================================ -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">From Optimization to Inference</h2>
-        <div class="content has-text-justified">
-          <p>
-            MI underpins independence testing, representation learning,
-            information bottlenecks, feature selection, and policy design.
-            What has held it back is operational: every neural query is a
-            small training run.
-          </p>
-          <p>
-            <span class="method-name">InfoAtlas</span> amortizes that run once,
-            over the synthetic atlas. At test time it behaves like a calculator
-            &mdash; samples in, MI out &mdash; and stays differentiable, so the
-            same checkpoint drops into end-to-end pipelines as a layer.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================================================ -->
-<!-- RESULTS -->
+<!-- RESULTS — interactive gallery + cost table -->
 <!-- ============================================================ -->
 <section class="section section-alt" id="results">
   <div class="container is-max-desktop">
@@ -350,57 +283,108 @@
       <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Results</h2>
         <p class="subtitle has-text-centered method-subtitle">
-          Synthetic benchmarks, high-D embeddings, motion, and robotics &mdash;
-          one checkpoint, no fine-tuning.
+          One checkpoint, no fine-tuning &mdash; from synthetic benchmarks to
+          robotics. Click the arrows or use &larr;&nbsp;/&nbsp;&rarr;.
         </p>
 
-        <figure class="image results-figure">
-          <img src="static/images/bmi.png" alt="BMI benchmark comparison">
-          <figcaption class="results-caption">
+        <!-- Interactive figure gallery -->
+        <div class="gallery" id="resultsGallery"
+             role="region" aria-roledescription="carousel"
+             aria-label="InfoAtlas result figures" tabindex="0">
+
+          <button class="gallery-nav gallery-prev" type="button"
+                  aria-label="Previous figure">
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+          </button>
+
+          <div class="gallery-track">
+            <figure class="gallery-slide is-active"
+                    data-caption="BMI benchmark (Czyz et al., 2023): InfoAtlas tracks ground-truth MI on par with the best gradient-trained estimators &mdash; at ~0.09 s per evaluation.">
+              <img src="static/images/bmi_revised.png" alt="BMI benchmark comparison">
+            </figure>
+            <figure class="gallery-slide"
+                    data-caption="Independence testing (128-D): ROC-AUC vs. sample size across linear, non-linear and heavy-tailed dependencies. InfoAtlas with 5-sliced MI matches or beats neural baselines.">
+              <img src="static/images/independence-task1-dim128.png" alt="Independence testing, 128-D">
+            </figure>
+            <figure class="gallery-slide"
+                    data-caption="CLIP image&ndash;text MI on 33k COCO pairs (512-D): InfoAtlas separates aligned from shuffled pairs more cleanly than MINE / MINDE / InfoNet.">
+              <img src="static/images/clip_5smi.png" alt="CLIP image-text MI">
+            </figure>
+            <figure class="gallery-slide"
+                    data-caption="PointOdyssey trajectory segmentation: trajectory-pair MI groups points on the same object. Higher AUC-PR at a fraction of the runtime.">
+              <img src="static/images/auc_revised.png" alt="Trajectory segmentation AUC-PR">
+            </figure>
+            <figure class="gallery-slide"
+                    data-caption="ManiSkill 2 key-state discovery: policies trained on InfoAtlas-derived key states win on Pick Cube (94.2 / 82.0), Stack Cube (68.2), and Peg Insertion (72.4).">
+              <img src="static/images/maxmi_revised.png" alt="Robotic key-state discovery success rates">
+            </figure>
+          </div>
+
+          <button class="gallery-nav gallery-next" type="button"
+                  aria-label="Next figure">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          </button>
+
+          <figcaption class="gallery-caption" id="galleryCaption">
             BMI benchmark (Czyz et&nbsp;al., 2023):
             <span class="method-name">InfoAtlas</span> tracks ground-truth MI on par
-            with the best gradient-trained baselines, orders of magnitude faster.
+            with the best gradient-trained estimators &mdash; at ~0.09&nbsp;s per evaluation.
           </figcaption>
-        </figure>
 
-        <div class="results-table-wrapper">
-          <table class="table is-fullwidth is-hoverable results-table">
+          <div class="gallery-dots" role="tablist" aria-label="Choose figure">
+            <button class="gallery-dot is-active" type="button" data-index="0" aria-label="BMI benchmark"></button>
+            <button class="gallery-dot" type="button" data-index="1" aria-label="Independence testing"></button>
+            <button class="gallery-dot" type="button" data-index="2" aria-label="CLIP image-text MI"></button>
+            <button class="gallery-dot" type="button" data-index="3" aria-label="Trajectory segmentation"></button>
+            <button class="gallery-dot" type="button" data-index="4" aria-label="Robotic key-state discovery"></button>
+          </div>
+        </div>
+
+        <!-- Cost table: runtime + GPU memory (from arxiv appendix) -->
+        <h3 class="title is-5 cost-table-h">Inference cost on a single H800 GPU</h3>
+        <p class="cost-table-sub">
+          A single forward pass with one checkpoint &mdash; runtime and memory grow
+          gently with sample size, with no training step in the loop.
+        </p>
+        <div class="cost-table-wrapper">
+          <table class="table is-fullwidth is-hoverable cost-table">
             <thead>
               <tr>
-                <th>Setting</th>
-                <th>Result</th>
-                <th>Baselines</th>
+                <th>Sample size <em>n</em></th>
+                <th>1k</th>
+                <th>5k</th>
+                <th>10k</th>
+                <th>20k</th>
+                <th>50k</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>BMI benchmark</strong></td>
-                <td>SOTA-comparable accuracy at ~0.09&nbsp;s/eval (~300&times; faster).</td>
-                <td>MINE, MINDE, InfoNCE, KNIFE, KSG, KDE, InfoNet</td>
+                <th>Time (s)</th>
+                <td>0.039</td>
+                <td>0.049</td>
+                <td>0.055</td>
+                <td>0.070</td>
+                <td>0.106</td>
               </tr>
               <tr>
-                <td><strong>Independence testing</strong> (16 / 64 / 128-D)</td>
-                <td>Matches or beats neural baselines at moderate&ndash;large&nbsp;<em>n</em>.</td>
-                <td>MINE, InfoNCE, MINDE, InfoNet</td>
-              </tr>
-              <tr>
-                <td><strong>CLIP image&ndash;text</strong> (33k COCO, 512-D)</td>
-                <td>Cleaner noise-band separation; 5-sliced MI beats InfoNet&rsquo;s 1-sliced.</td>
-                <td>MINE, MINDE, InfoNet</td>
-              </tr>
-              <tr>
-                <td><strong>Trajectory segmentation</strong> (PointOdyssey)</td>
-                <td>Same-object grouping by trajectory MI &mdash; seconds, not hours.</td>
-                <td>MINE, InfoNet</td>
-              </tr>
-              <tr>
-                <td><strong>Robotic key-state discovery</strong> (ManiSkill 2)</td>
-                <td>Best on Pick&nbsp;Cube (94.2 / 82.0), Stack&nbsp;Cube (68.2), Peg&nbsp;Insertion (72.4).</td>
-                <td>Task-specific baselines, InfoNet</td>
+                <th>GPU memory (GB)</th>
+                <td>0.21</td>
+                <td>0.55</td>
+                <td>0.98</td>
+                <td>1.81</td>
+                <td>4.33</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <p class="ref-list">
+          <a id="ref-goldfeld2022k"></a>
+          [1] Goldfeld, Greenewald, Nuradha, Reeves.
+          <em>k-Sliced Mutual Information: A Quantitative Study of Scalability with Dimension.</em>
+          NeurIPS 2022.
+        </p>
       </div>
     </div>
   </div>

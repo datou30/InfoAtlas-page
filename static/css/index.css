@@ -681,14 +681,14 @@ code {
   box-shadow: 0 6px 22px rgba(20, 40, 80, 0.07);
 }
 .cost-table thead th {
-  background: linear-gradient(135deg, var(--infoatlas-accent) 0%, var(--infoatlas-method) 100%);
-  color: #fff;
+  background: #ffffff;
+  color: var(--infoatlas-accent);
   font-weight: 600;
   letter-spacing: 0.04em;
   font-size: 0.92rem;
-  border-bottom: 0;
+  border-bottom: 2px solid var(--infoatlas-rule);
 }
-.cost-table thead th em { font-style: italic; font-weight: 400; opacity: 0.9; }
+.cost-table thead th em { font-style: italic; font-weight: 400; color: var(--infoatlas-muted); }
 .cost-table tbody th {
   background: #fafbfd;
   color: var(--infoatlas-ink);
@@ -749,14 +749,16 @@ code {
   box-shadow: 0 6px 22px rgba(20, 40, 80, 0.07);
 }
 .robotics-table thead th {
-  background: linear-gradient(135deg, var(--infoatlas-accent) 0%, var(--infoatlas-method) 100%);
-  color: #fff;
+  background: #ffffff;
+  color: var(--infoatlas-accent);
   font-weight: 600;
   letter-spacing: 0.02em;
   padding: 0.55rem 0.7rem;
-  border-bottom: 0;
+  border-bottom: 2px solid var(--infoatlas-rule);
 }
-.robotics-table thead tr:first-child th { border-bottom: 1px solid rgba(255,255,255,0.25); }
+.robotics-table thead tr:first-child th {
+  border-bottom: 1px solid var(--infoatlas-rule);
+}
 .robotics-table th.rt-method { text-align: left; padding-left: 1rem; }
 .robotics-table tbody th {
   text-align: left;

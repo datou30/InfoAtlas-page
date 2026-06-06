@@ -241,30 +241,21 @@
           <p>
             Given samples from an unknown joint distribution,
             <span class="method-name">InfoAtlas</span> emits the parameters of a
-            near-optimal Donsker&ndash;Varadhan critic in one shot and plugs them
-            into the dual-form MI estimator.
-          </p>
-
-          <h3 class="title is-5 method-h">Dual-path attention</h3>
-          <p>
-            A <em>joint path</em> attends over paired samples <code>(x, y)</code> to
-            capture co-variation. A <em>marginal path</em> shuffles the pairing to
-            model what independence would look like. The two are fused by
-            cross-attention; a small MLP then decodes the critic weights.
+            near-optimal Donsker&ndash;Varadhan critic in a single forward pass.
+            A <em>joint path</em> attends over paired samples <code>(x, y)</code>;
+            a <em>marginal path</em> shuffles the pairing to model independence.
+            Cross-attention fuses the two, and a small MLP decodes the critic
+            weights.
           </p>
 
           <h3 class="title is-5 method-h">Variable-shape inputs</h3>
           <p>
-            Inputs of any dimension are padded to a fixed size with independent
-            Gaussian noise &mdash; a transformation that <em>provably preserves MI</em>.
-            Attention handles varying sample sizes natively.
-            For high-dimensional inputs beyond the trained range, we plug
+            Smaller inputs are padded with independent Gaussian noise &mdash; a
+            transformation that <em>provably preserves MI</em> &mdash; and
+            attention handles varying sample sizes natively.
+            For dimensions beyond the trained range, we plug
             <span class="method-name">InfoAtlas</span> into
-            <em>k</em>-sliced MI&nbsp;[1]: the data is projected onto several
-            <em>k</em>-dimensional random subspaces and the per-projection MI
-            estimates are averaged &mdash; preserving the
-            independence&nbsp;&hArr;&nbsp;zero-MI property with dimension-free
-            sample complexity.
+            <em>k</em>-sliced MI&nbsp;[1], itself a solid dependence measure.
           </p>
           <p class="method-ref">
             [1] Goldfeld, Greenewald, Nuradha, Reeves.

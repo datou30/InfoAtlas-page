@@ -3,15 +3,26 @@
 // ============================================================
 
 (function () {
-  // -- Results gallery (interactive carousel) --
+  // -- Results gallery (auto-sizes to active slide) --
   const gallery = document.getElementById('resultsGallery');
   if (gallery) {
+    const track    = gallery.querySelector('.gallery-track');
     const slides   = Array.from(gallery.querySelectorAll('.gallery-slide'));
     const dots     = Array.from(gallery.querySelectorAll('.gallery-dot'));
     const captionEl = document.getElementById('galleryCaption');
     const prevBtn  = gallery.querySelector('.gallery-prev');
     const nextBtn  = gallery.querySelector('.gallery-next');
     let idx = 0;
+
+    function resizeTrack() {
+      if (!track) return;
+      const active = slides[idx];
+      if (!active) return;
+      // Slide is position:absolute with no bottom set, so offsetHeight reads
+      // its natural content height. Set the track to match.
+      const h = active.offsetHeight;
+      if (h > 0) track.style.height = h + 'px';
+    }
 
     function show(i) {
       idx = (i + slides.length) % slides.length;
@@ -21,30 +32,57 @@
         const cap = slides[idx].getAttribute('data-caption') || '';
         captionEl.innerHTML = cap;
       }
+      resizeTrack();
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', () => show(idx - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => show(idx + 1));
+    if (prevBtn) prevBtn.addEventListener('click', (ev) => { ev.stopPropagation(); show(idx - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', (ev) => { ev.stopPropagation(); show(idx + 1); });
     dots.forEach(d =>
-      d.addEventListener('click', () => show(Number(d.dataset.index || 0)))
+      d.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        show(Number(d.dataset.index || 0));
+      })
     );
 
-    // Keyboard navigation when the gallery has focus
+    // Keyboard navigation
     gallery.addEventListener('keydown', (ev) => {
       if (ev.key === 'ArrowRight') { ev.preventDefault(); show(idx + 1); }
       else if (ev.key === 'ArrowLeft') { ev.preventDefault(); show(idx - 1); }
     });
 
-    // Click-zones: tap the right half of the frame to advance, left to go back
-    const track = gallery.querySelector('.gallery-track');
+    // Click-zones: tap left/right half of the active slide to navigate.
+    // Ignore taps on interactive children (links, buttons) and on the table cells
+    // — that lets users select text without flipping the slide.
     if (track) {
       track.addEventListener('click', (ev) => {
+        if (ev.target.closest('a, button, th, td')) return;
         const rect = track.getBoundingClientRect();
         const x = ev.clientX - rect.left;
         if (x > rect.width / 2) show(idx + 1);
         else show(idx - 1);
       });
     }
+
+    // Recompute height when images finish loading and on viewport resize.
+    const imgs = gallery.querySelectorAll('img');
+    imgs.forEach(img => {
+      if (img.complete) return;
+      img.addEventListener('load',  resizeTrack, { once: true });
+      img.addEventListener('error', resizeTrack, { once: true });
+    });
+    window.addEventListener('resize', () => {
+      // throttle via rAF
+      window.requestAnimationFrame(resizeTrack);
+    });
+    if (typeof ResizeObserver !== 'undefined') {
+      const ro = new ResizeObserver(() => resizeTrack());
+      slides.forEach(s => ro.observe(s));
+    }
+
+    // First paint
+    show(0);
+    // Re-measure once more after fonts/styles settle
+    window.requestAnimationFrame(() => window.requestAnimationFrame(resizeTrack));
   }
 
   // -- Copy BibTeX entry to clipboard --
@@ -56,7 +94,6 @@
       try {
         await navigator.clipboard.writeText(text);
       } catch (err) {
-        // Fallback for older browsers
         const range = document.createRange();
         range.selectNode(pre);
         const sel = window.getSelection();

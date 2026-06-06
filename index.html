@@ -4,17 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-        content="InfoAtlas: a foundation-style model that estimates mutual information between high-dimensional random variables in a single forward pass. ICML 2026.">
+        content="InfoAtlas: a foundation-style model that estimates statistical dependency between high-dimensional random variables in a single forward pass. ICML 2026.">
   <meta name="keywords"
         content="InfoAtlas, mutual information, foundation model, dependency estimation, ICML 2026, hypernetwork, real-time MI">
 
   <meta property="og:title" content="InfoAtlas: A Foundation-style Model for Zero-Shot Statistical Dependency Measurement">
-  <meta property="og:description" content="MI estimation as inference, not optimization. ~100x speedup at SOTA accuracy. ICML 2026.">
+  <meta property="og:description" content="Dependence estimation as inference, not optimization. ~300x speedup at SOTA accuracy. ICML 2026.">
   <meta property="og:image" content="static/images/teaser.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Google Scholar citation metadata: helps Scholar index this page as ICML 2026 -->
   <meta name="citation_title" content="InfoAtlas: A Foundation-style Model for Zero-Shot Statistical Dependency Measurement">
   <meta name="citation_author" content="Hu, Zhengyang">
   <meta name="citation_author" content="Chen, Yanzhi">
@@ -52,25 +51,22 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
+
+          <!-- Flashy ICML 2026 badge -->
           <a href="https://icml.cc/" target="_blank" class="conf-badge-wrap" aria-label="ICML 2026">
-            <span class="tag is-medium conf-badge">ICML&nbsp;2026</span>
+            <span class="conf-badge">
+              <span class="conf-badge-star" aria-hidden="true"><i class="fas fa-star"></i></span>
+              <span class="conf-badge-text">ICML&nbsp;2026</span>
+              <span class="conf-badge-pill">Accepted</span>
+            </span>
           </a>
+
           <h1 class="title publication-title">
             <span class="method-name">InfoAtlas</span>:
             <br>
             A Foundation-style Model for<br>
             Zero-Shot Statistical Dependency Measurement
           </h1>
-
-          <p class="hero-tagline-headline">
-            Need <strong>fast</strong>, <strong>accurate dependence estimation</strong>?
-          </p>
-          <p class="hero-tagline-sub">
-            <span class="method-name">InfoAtlas</span> is a pretrained model that, after one-time
-            training on a vast atlas of synthetic distributions, estimates the dependency
-            between any <code>(x, y)</code> pair in a single forward pass.
-            Samples in, dependence out &mdash; and it stays differentiable.
-          </p>
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">
@@ -97,9 +93,22 @@
             <sup>*</sup>Equal contribution &nbsp;&nbsp; <sup>&dagger;</sup>Corresponding author
           </div>
 
+          <!-- Tagline as a stylized callout card (breaks up the stacked text) -->
+          <div class="tagline-card">
+            <div class="tagline-quote" aria-hidden="true"><i class="fas fa-quote-left"></i></div>
+            <p class="tagline-headline">
+              Need <strong>fast</strong>, <strong>accurate dependence estimation</strong>?
+            </p>
+            <p class="tagline-sub">
+              <span class="method-name">InfoAtlas</span> is a pretrained model that, after one-time
+              training on a vast atlas of synthetic distributions, estimates the dependency between
+              any <code>(x, y)</code> pair in a single forward pass.
+              Samples in, dependence out &mdash; and it stays differentiable.
+            </p>
+          </div>
+
           <div class="column has-text-centered hero-buttons">
             <div class="publication-links">
-              <!-- Paper PDF -->
               <span class="link-block">
                 <a href="static/pdfs/paper.pdf"
                    class="external-link button is-normal is-rounded is-dark">
@@ -107,7 +116,6 @@
                   <span>Paper</span>
                 </a>
               </span>
-              <!-- arXiv -->
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2606.00241"
                    class="external-link button is-normal is-rounded is-dark">
@@ -115,15 +123,13 @@
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Poster -->
               <span class="link-block">
-                <a href="static/pdfs/poster.pdf"
+                <a href="static/pdfs/poster.pdf" target="_blank"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-image"></i></span>
                   <span>Poster</span>
                 </a>
               </span>
-              <!-- Code -->
               <span class="link-block">
                 <a href="https://github.com/datou30/InfoAtlas"
                    class="external-link button is-normal is-rounded is-dark">
@@ -131,7 +137,6 @@
                   <span>Code</span>
                 </a>
               </span>
-              <!-- BibTeX -->
               <span class="link-block">
                 <a href="#bibtex"
                    class="external-link button is-normal is-rounded is-dark">
@@ -178,12 +183,12 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="static/images/teaser.png" alt="InfoAtlas at a glance"
+      <img src="static/images/teaser.png" alt="Existing MI estimation (per-dataset gradient training) vs. InfoAtlas (pretrained, one forward pass)"
            class="teaser-image">
       <h2 class="subtitle has-text-centered teaser-caption">
-        <span class="method-name">InfoAtlas</span> reformulates mutual information estimation
-        from a per-dataset optimization problem into a single forward pass &mdash;
-        a pretrained model that infers MI directly from samples.
+        Existing neural MI estimators (left) train a network per dataset.
+        <span class="method-name">InfoAtlas</span> (right) is pretrained once
+        and emits MI from samples in a single forward pass.
       </h2>
     </div>
   </div>
@@ -205,7 +210,7 @@
             <span class="method-name">InfoAtlas</span> removes that step. Pretrained
             once on a large synthetic atlas of dependence structures, it infers MI
             in a single forward pass &mdash; matching state-of-the-art accuracy at
-            ~100&times; the speed, on inputs of varying dimension and sample size,
+            ~300&times; the speed, on inputs of varying dimension and sample size,
             with strong zero-shot transfer to real data.
           </p>
         </div>
@@ -280,7 +285,7 @@
 
 
 <!-- ============================================================ -->
-<!-- RESULTS — interactive gallery + cost table -->
+<!-- RESULTS — interactive gallery (auto-sizes to active slide) -->
 <!-- ============================================================ -->
 <section class="section section-alt" id="results">
   <div class="container is-max-desktop">
@@ -292,7 +297,6 @@
           robotics. Click the arrows or use &larr;&nbsp;/&nbsp;&rarr;.
         </p>
 
-        <!-- Interactive figure gallery -->
         <div class="gallery" id="resultsGallery"
              role="region" aria-roledescription="carousel"
              aria-label="InfoAtlas result figures" tabindex="0">
@@ -303,29 +307,162 @@
           </button>
 
           <div class="gallery-track">
-            <figure class="gallery-slide is-active"
-                    data-caption="BMI benchmark (Czyz et al., 2023): InfoAtlas tracks ground-truth MI on par with the best gradient-trained estimators &mdash; at ~0.09 s per evaluation.">
-              <img src="static/images/bmi_revised.png" alt="BMI benchmark comparison">
+
+            <!-- Slide 1 — BMI benchmark table -->
+            <figure class="gallery-slide is-active is-table-slide"
+                    data-caption="Sanity check on the BMI benchmark (Czyz et al., 2023): 8 tasks with known ground-truth MI. InfoAtlas matches the best neural baselines at ~0.09 s per task — about 300x faster.">
+              <div class="bmi-table-wrapper">
+                <table class="bmi-table">
+                  <thead>
+                    <tr>
+                      <th class="bmi-method">Method</th>
+                      <th>Mn-dense<br><small>5-5-0.5</small></th>
+                      <th>Spiral<br><small>3-3-2-2.0</small></th>
+                      <th>Asinh@St<br><small>5-5-2</small></th>
+                      <th>St<br><small>3-3-3</small></th>
+                      <th>Uniform<br><small>3-3-2-2.0</small></th>
+                      <th>Hc@Mn<br><small>5-5-2</small></th>
+                      <th>Additive<br><small>1-1-0.1</small></th>
+                      <th>Bimodal<br><small>1-1-0.75</small></th>
+                      <th>Time (s)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bmi-gt">
+                      <th><em>GT</em></th>
+                      <td>0.59</td><td>1.02</td><td>0.45</td><td>0.18</td>
+                      <td>1.02</td><td>1.02</td><td>1.71</td><td>0.41</td><td>&mdash;</td>
+                    </tr>
+                    <tr>
+                      <th class="bmi-tag bmi-blue">KSG</th>
+                      <td>0.54</td><td>0.75</td><td>0.25</td><td>0.07</td>
+                      <td>0.79</td><td>0.58</td><td>1.61</td><td><strong>0.41</strong></td>
+                      <td><u>0.13</u></td>
+                    </tr>
+                    <tr>
+                      <th class="bmi-tag bmi-blue">KDE</th>
+                      <td>1.59</td><td>2.87</td><td>2.43</td><td>2.36</td>
+                      <td>1.17</td><td>2.23</td><td>2.94</td><td>1.23</td><td>2.04</td>
+                    </tr>
+                    <tr>
+                      <th class="bmi-tag bmi-green">MINE</th>
+                      <td><strong>0.60</strong></td><td><strong>1.00</strong></td><td>0.53</td><td><u>0.21</u></td>
+                      <td><strong>1.03</strong></td><td><u>1.06</u></td><td><strong>1.63</strong></td><td>0.39</td><td>25.9</td>
+                    </tr>
+                    <tr>
+                      <th class="bmi-tag bmi-green">MINE-5s</th>
+                      <td><strong>0.60</strong></td><td>0.90</td><td>0.33</td><td>0.15</td>
+                      <td>0.93</td><td><u>1.06</u></td><td>1.61</td><td>0.38</td><td>4.92</td>
+                    </tr>
+                    <tr>
+                      <th class="bmi-tag bmi-green">MINDE</th>
+                      <td><strong>0.58</strong></td><td>0.92</td><td><strong>0.43</strong></td><td>0.36</td>
+                      <td>0.89</td><td><strong>1.01</strong></td><td>1.42</td><td>0.50</td><td>34.2</td>
+                    </tr>
+                    <tr>
+                      <th class="bmi-tag bmi-green">InfoNCE</th>
+                      <td><u>0.56</u></td><td><u>0.98</u></td><td><u>0.49</u></td><td><strong>0.18</strong></td>
+                      <td><u>0.97</u></td><td><strong>1.03</strong></td><td><u>1.62</u></td><td><u>0.40</u></td><td>67.6</td>
+                    </tr>
+                    <tr>
+                      <th class="bmi-tag bmi-green">KNIFE</th>
+                      <td>0.93</td><td>0.10</td><td>0.66</td><td>0.50</td>
+                      <td>0.07</td><td>0.92</td><td>0.05</td><td>0.65</td><td>48.4</td>
+                    </tr>
+                    <tr class="bmi-ours">
+                      <th class="bmi-tag bmi-green">InfoAtlas</th>
+                      <td><strong>0.60</strong></td><td>0.89</td><td><u>0.41</u></td><td><u>0.21</u></td>
+                      <td>0.93</td><td>0.96</td><td>1.46</td><td>0.39</td>
+                      <td><strong>0.09</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p class="bmi-footnote">
+                  <strong>Bold</strong>: closest to ground truth.
+                  <u>Underlined</u>: second-best.
+                  <span class="bmi-swatch bmi-green"></span>&nbsp;Neural &nbsp;
+                  <span class="bmi-swatch bmi-blue"></span>&nbsp;Non-parametric
+                </p>
+              </div>
             </figure>
-            <figure class="gallery-slide"
-                    data-caption="Independence testing (128-D): ROC-AUC vs. sample size across linear, non-linear and heavy-tailed dependencies. InfoAtlas with 5-sliced MI matches or beats neural baselines.">
-              <img src="static/images/independence-task1-dim128.png" alt="Independence testing, 128-D">
+
+            <!-- Slide 2 — Independence testing, 6-panel grid -->
+            <figure class="gallery-slide is-grid-slide"
+                    data-caption="High-dimensional independence testing: ROC-AUC vs. sample size n, three correlation types (columns) at d=16 (top) and d=128 (bottom). InfoAtlas matches gradient-trained MINE / InfoNCE / MINDE — without any optimization at test time.">
+              <div class="grid-6">
+                <figure>
+                  <img src="static/images/independence-task1-dim16.png" alt="Type I, d=16">
+                  <figcaption>Type&nbsp;I, <em>d</em>=16</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/independence-task2-dim16.png" alt="Type II, d=16">
+                  <figcaption>Type&nbsp;II, <em>d</em>=16</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/independence-task3-dim16.png" alt="Type III, d=16">
+                  <figcaption>Type&nbsp;III, <em>d</em>=16</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/independence-task1-dim128.png" alt="Type I, d=128">
+                  <figcaption>Type&nbsp;I, <em>d</em>=128</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/independence-task2-dim128.png" alt="Type II, d=128">
+                  <figcaption>Type&nbsp;II, <em>d</em>=128</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/independence-task3-dim128.png" alt="Type III, d=128">
+                  <figcaption>Type&nbsp;III, <em>d</em>=128</figcaption>
+                </figure>
+              </div>
             </figure>
-            <figure class="gallery-slide"
-                    data-caption="CLIP image&ndash;text MI on 33k COCO pairs (512-D): InfoAtlas separates aligned from shuffled pairs more cleanly than MINE / MINDE / InfoNet.">
-              <img src="static/images/clip_5smi.png" alt="CLIP image-text MI">
+
+            <!-- Slide 3 — CLIP, 4 figures -->
+            <figure class="gallery-slide is-grid-slide"
+                    data-caption="CLIP image–text MI on 33k COCO pairs (512-D), across 5 noise levels. From left: InfoAtlas (5-sliced) — InfoNet (1-sliced) — MINE — MINDE. Tighter error bands = better noise separation.">
+              <div class="grid-4">
+                <figure>
+                  <img src="static/images/clip01.png" alt="CLIP — InfoAtlas (5-sliced)">
+                  <figcaption><span class="method-name">InfoAtlas</span> (5-sliced)</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/clip02.png" alt="CLIP — InfoNet (1-sliced)">
+                  <figcaption>InfoNet (1-sliced)</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/clip03.png" alt="CLIP — MINE">
+                  <figcaption>MINE</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/clip04.png" alt="CLIP — MINDE">
+                  <figcaption>MINDE</figcaption>
+                </figure>
+              </div>
             </figure>
-            <figure class="gallery-slide"
-                    data-caption="PointOdyssey trajectory segmentation: trajectory-pair MI groups points on the same object. Higher AUC-PR at a fraction of the runtime.">
-              <img src="static/images/auc_revised.png" alt="Trajectory segmentation AUC-PR">
+
+            <!-- Slide 4 — PointOdyssey trajectory MI, 3 panels -->
+            <figure class="gallery-slide is-grid-slide"
+                    data-caption="PointOdyssey trajectory MI for video object segmentation: trajectory-pair MI is consistently higher within the same object as the reference (★). Right: AUC-PR vs. runtime against MINE / InfoNet.">
+              <div class="grid-3">
+                <figure>
+                  <img src="static/images/InfoNet+_r1_new__mi_1500.jpg" alt="MI heatmap w.r.t. reference point 1">
+                  <figcaption>MI heatmap, reference point&nbsp;1&nbsp;(&starf;)</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/InfoNet+_r1_new__mi_3200.jpg" alt="MI heatmap w.r.t. reference point 2">
+                  <figcaption>MI heatmap, reference point&nbsp;2&nbsp;(&starf;)</figcaption>
+                </figure>
+                <figure>
+                  <img src="static/images/3dtrack_auc.png" alt="MI-based video segmentation AUC-PR">
+                  <figcaption>MI-based video segmentation: AUC-PR vs. runtime</figcaption>
+                </figure>
+              </div>
             </figure>
-            <figure class="gallery-slide"
-                    data-caption="ManiSkill 2 key-state discovery: policies trained on InfoAtlas-derived key states win on Pick Cube (94.2 / 82.0), Stack Cube (68.2), and Peg Insertion (72.4).">
-              <img src="static/images/maxmi_revised.png" alt="Robotic key-state discovery success rates">
-            </figure>
+
+            <!-- Slide 5 — Inference cost (single H200 GPU) -->
             <figure class="gallery-slide is-table-slide"
-                    data-caption="Inference cost on a single H200 GPU &mdash; one forward pass, no training loop. Both runtime and GPU memory grow gently with sample size.">
-              <div class="gallery-table-card">
+                    data-caption="Inference cost on a single H200 GPU — one forward pass, no training loop. Both runtime and GPU memory grow gently with sample size.">
+              <div class="cost-table-card">
                 <table class="cost-table">
                   <thead>
                     <tr>
@@ -366,48 +503,18 @@
           </button>
 
           <figcaption class="gallery-caption" id="galleryCaption">
-            BMI benchmark (Czyz et&nbsp;al., 2023):
-            <span class="method-name">InfoAtlas</span> tracks ground-truth MI on par
-            with the best gradient-trained estimators &mdash; at ~0.09&nbsp;s per evaluation.
+            Sanity check on the BMI benchmark (Czyz et&nbsp;al., 2023):
+            8 tasks with known ground-truth MI.
+            <span class="method-name">InfoAtlas</span> matches the best neural
+            baselines at ~0.09&nbsp;s per task &mdash; about 300&times; faster.
           </figcaption>
 
           <div class="gallery-dots" role="tablist" aria-label="Choose figure">
             <button class="gallery-dot is-active" type="button" data-index="0" aria-label="BMI benchmark"></button>
             <button class="gallery-dot" type="button" data-index="1" aria-label="Independence testing"></button>
             <button class="gallery-dot" type="button" data-index="2" aria-label="CLIP image-text MI"></button>
-            <button class="gallery-dot" type="button" data-index="3" aria-label="Trajectory segmentation"></button>
-            <button class="gallery-dot" type="button" data-index="4" aria-label="Robotic key-state discovery"></button>
-            <button class="gallery-dot" type="button" data-index="5" aria-label="Inference cost on H200"></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================================================ -->
-<!-- POSTER -->
-<!-- ============================================================ -->
-<section class="section" id="poster">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width has-text-centered">
-        <h2 class="title is-3">ICML&nbsp;2026 Poster</h2>
-        <p class="subtitle method-subtitle">
-          The whole story on one page &mdash; see you in Seoul.
-        </p>
-        <div class="poster-wrapper">
-          <embed src="static/pdfs/poster.pdf#view=FitH"
-                 type="application/pdf"
-                 class="poster-embed"
-                 title="InfoAtlas ICML 2026 poster">
-          <div class="poster-fallback">
-            <a href="static/pdfs/poster.pdf" target="_blank"
-               class="button is-normal is-rounded is-dark">
-              <span class="icon"><i class="fas fa-file-pdf"></i></span>
-              <span>Download poster (PDF)</span>
-            </a>
+            <button class="gallery-dot" type="button" data-index="3" aria-label="PointOdyssey trajectory MI"></button>
+            <button class="gallery-dot" type="button" data-index="4" aria-label="Inference cost on H200"></button>
           </div>
         </div>
       </div>
@@ -419,11 +526,12 @@
 <!-- ============================================================ -->
 <!-- BIBTEX -->
 <!-- ============================================================ -->
-<section class="section section-alt" id="bibtex">
+<section class="section" id="bibtex">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">BibTeX</h2>
     <p class="subtitle has-text-centered method-subtitle">
-      Please cite the ICML&nbsp;2026 version.
+      Please cite the ICML&nbsp;2026 version once the proceedings are out;
+      for now, the arXiv preprint suffices.
     </p>
     <div class="bibtex-wrapper">
       <button class="button is-small is-dark copy-bibtex-btn" id="copyBibtexBtn"

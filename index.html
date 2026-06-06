@@ -284,8 +284,8 @@
       <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Results</h2>
         <p class="subtitle has-text-centered method-subtitle">
-          One checkpoint, no fine-tuning &mdash; from synthetic benchmarks to
-          robotics. Click the arrows or use &larr;&nbsp;/&nbsp;&rarr;.
+          From synthetic benchmarks to real-world data &mdash; one checkpoint,
+          zero fine-tuning. Use the arrows or &larr;&nbsp;/&nbsp;&rarr; to browse.
         </p>
 
         <div class="gallery" id="resultsGallery"
@@ -450,7 +450,71 @@
               </div>
             </figure>
 
-            <!-- Slide 5 — Inference cost (single H200 GPU) -->
+            <!-- Slide 5 — Robotics: ManiSkill 2 key-state discovery -->
+            <figure class="gallery-slide is-table-slide"
+                    data-caption="Robotic manipulation key-state discovery (ManiSkill 2): policies trained on InfoAtlas-derived key states win on Pick Cube, Stack Cube, and Peg Insertion.">
+              <div class="robotics-table-card">
+                <table class="robotics-table">
+                  <thead>
+                    <tr>
+                      <th rowspan="2" class="rt-method">Method</th>
+                      <th colspan="2">Pick Cube</th>
+                      <th colspan="2">Stack Cube</th>
+                      <th colspan="2">Peg Insertion</th>
+                      <th rowspan="2">Time (s)</th>
+                    </tr>
+                    <tr>
+                      <th>Seen</th><th>Unseen</th>
+                      <th>Seen</th><th>Unseen</th>
+                      <th>Seen</th><th>Unseen</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>No-MI-Loss</th>
+                      <td>66.0</td><td>60.0</td>
+                      <td>67.4</td><td><strong>41.0</strong></td>
+                      <td>38.6</td><td>9.3</td>
+                      <td>&mdash;</td>
+                    </tr>
+                    <tr>
+                      <th>MINE-100</th>
+                      <td>86.4</td><td>81.0</td>
+                      <td>68.0</td><td>37.0</td>
+                      <td>55.0</td><td>13.5</td>
+                      <td>0.62</td>
+                    </tr>
+                    <tr>
+                      <th>MINE-1000</th>
+                      <td>81.2</td><td>81.0</td>
+                      <td>61.2</td><td>37.0</td>
+                      <td>65.4</td><td>17.8</td>
+                      <td>6.01</td>
+                    </tr>
+                    <tr>
+                      <th>InfoNet</th>
+                      <td>91.0</td><td>76.0</td>
+                      <td>63.0</td><td>27.0</td>
+                      <td>46.4</td><td>9.8</td>
+                      <td>1.23</td>
+                    </tr>
+                    <tr class="rt-ours">
+                      <th><span class="method-name">InfoAtlas</span></th>
+                      <td><strong>94.2</strong></td><td><strong>82.0</strong></td>
+                      <td><strong>68.2</strong></td><td>37.0</td>
+                      <td><strong>72.4</strong></td><td><strong>18.3</strong></td>
+                      <td>2.17</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p class="rt-footnote">
+                  Policy success rate (%) on 100-D state observations.
+                  <span class="method-name">InfoAtlas</span> uses 25 slices, InfoNet uses 250 slices.
+                </p>
+              </div>
+            </figure>
+
+            <!-- Slide 6 — Inference cost (single H200 GPU) -->
             <figure class="gallery-slide is-table-slide"
                     data-caption="Inference cost on a single H200 GPU — one forward pass, no training loop. Both runtime and GPU memory grow gently with sample size.">
               <div class="cost-table-card">
@@ -466,16 +530,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th>Time (s)</th>
+                    <tr class="ct-time">
+                      <th><span class="ct-dot ct-dot-time"></span>Time (s)</th>
                       <td>0.039</td>
                       <td>0.049</td>
                       <td>0.055</td>
                       <td>0.070</td>
                       <td>0.106</td>
                     </tr>
-                    <tr>
-                      <th>GPU memory (GB)</th>
+                    <tr class="ct-mem">
+                      <th><span class="ct-dot ct-dot-mem"></span>GPU memory (GB)</th>
                       <td>0.21</td>
                       <td>0.55</td>
                       <td>0.98</td>
@@ -484,6 +548,9 @@
                     </tr>
                   </tbody>
                 </table>
+                <p class="cost-table-foot">
+                  Speed averaged over batch size 16 on a single H200 GPU.
+                </p>
               </div>
             </figure>
           </div>
@@ -505,7 +572,8 @@
             <button class="gallery-dot" type="button" data-index="1" aria-label="Independence testing"></button>
             <button class="gallery-dot" type="button" data-index="2" aria-label="CLIP image-text MI"></button>
             <button class="gallery-dot" type="button" data-index="3" aria-label="PointOdyssey trajectory MI"></button>
-            <button class="gallery-dot" type="button" data-index="4" aria-label="Inference cost on H200"></button>
+            <button class="gallery-dot" type="button" data-index="4" aria-label="Robotics key-state discovery"></button>
+            <button class="gallery-dot" type="button" data-index="5" aria-label="Inference cost on H200"></button>
           </div>
         </div>
       </div>

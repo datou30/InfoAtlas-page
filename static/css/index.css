@@ -664,23 +664,31 @@ code {
 .bmi-swatch.bmi-green { background: #4f8c5a; }
 .bmi-swatch.bmi-blue  { background: #2f6fa8; }
 
-/* Cost table — rendered inside the gallery's table-slide */
+/* Cost table — prettier styling */
+.cost-table-card {
+  max-width: 720px;
+  margin: 0 auto;
+}
 .cost-table {
   width: 100%;
   background: #fff;
   border: 1px solid var(--infoatlas-rule);
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   text-align: center;
   border-collapse: separate;
   border-spacing: 0;
+  box-shadow: 0 6px 22px rgba(20, 40, 80, 0.07);
 }
 .cost-table thead th {
-  background: var(--infoatlas-accent-soft);
-  color: var(--infoatlas-accent);
+  background: linear-gradient(135deg, var(--infoatlas-accent) 0%, var(--infoatlas-method) 100%);
+  color: #fff;
   font-weight: 600;
-  text-align: center;
+  letter-spacing: 0.04em;
+  font-size: 0.92rem;
+  border-bottom: 0;
 }
+.cost-table thead th em { font-style: italic; font-weight: 400; opacity: 0.9; }
 .cost-table tbody th {
   background: #fafbfd;
   color: var(--infoatlas-ink);
@@ -688,17 +696,100 @@ code {
   text-align: left;
   white-space: nowrap;
 }
-.cost-table td {
+.cost-table tbody td {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: var(--infoatlas-ink);
+  transition: background 0.15s ease;
 }
+.cost-table tbody tr:hover td { background: var(--infoatlas-accent-soft); }
 .cost-table td, .cost-table th {
   vertical-align: middle;
-  padding: 0.65rem 0.9rem;
+  padding: 0.85rem 1rem;
   border-bottom: 1px solid var(--infoatlas-rule);
 }
 .cost-table tbody tr:last-child td,
 .cost-table tbody tr:last-child th { border-bottom: 0; }
+
+/* tiny color-coded dot next to each row label */
+.ct-dot {
+  display: inline-block;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  margin-right: 0.55em;
+  vertical-align: 1px;
+}
+.ct-dot-time { background: #4f8c5a; box-shadow: 0 0 0 3px rgba(79, 140, 90, 0.16); }
+.ct-dot-mem  { background: #d4831a; box-shadow: 0 0 0 3px rgba(212, 131, 26, 0.16); }
+
+.cost-table-foot {
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--infoatlas-muted);
+  font-style: italic;
+}
+
+/* Robotics table (ManiSkill 2) — shares the cost-table look */
+.robotics-table-card {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.robotics-table {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--infoatlas-rule);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.92rem;
+  box-shadow: 0 6px 22px rgba(20, 40, 80, 0.07);
+}
+.robotics-table thead th {
+  background: linear-gradient(135deg, var(--infoatlas-accent) 0%, var(--infoatlas-method) 100%);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 0;
+}
+.robotics-table thead tr:first-child th { border-bottom: 1px solid rgba(255,255,255,0.25); }
+.robotics-table th.rt-method { text-align: left; padding-left: 1rem; }
+.robotics-table tbody th {
+  text-align: left;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  background: #fafbfd;
+  white-space: nowrap;
+}
+.robotics-table tbody td {
+  padding: 0.6rem 0.7rem;
+  font-variant-numeric: tabular-nums;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 500;
+}
+.robotics-table tbody tr:not(:last-child) td,
+.robotics-table tbody tr:not(:last-child) th {
+  border-bottom: 1px solid var(--infoatlas-rule);
+}
+.robotics-table tr.rt-ours {
+  background: rgba(45, 108, 223, 0.06);
+}
+.robotics-table tr.rt-ours th,
+.robotics-table tr.rt-ours td {
+  color: var(--infoatlas-method);
+  font-weight: 700;
+}
+.rt-footnote {
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--infoatlas-muted);
+  font-style: italic;
+}
 
 /* Method-section inline reference (under k-sliced MI mention) */
 .method-ref {

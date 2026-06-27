@@ -559,6 +559,28 @@ code {
   text-align: center;
   color: var(--infoatlas-muted);
 }
+.caption-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  margin-left: 0.2em;
+  padding: 0.15em 0.6em;
+  background: var(--infoatlas-accent-soft);
+  color: var(--infoatlas-method);
+  border: 1px solid rgba(45, 108, 223, 0.20);
+  border-radius: 999px;
+  font-size: 0.86em;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.caption-link:hover {
+  background: var(--infoatlas-method);
+  color: #fff;
+  border-color: var(--infoatlas-method);
+}
+.caption-link i { font-size: 0.85em; }
 
 .gallery-dots {
   margin-top: 0.8rem;
